@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "93dfed42-37f5-4af3-8d09-e54038990dd1",
+		"name": "retail-store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "order-service - /orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"items\":[\r\n{\r\n\"itemCode\":\"IT0001\",\r\n\"quantity\":3\r\n},\r\n{\r\n\"itemCode\":\"IT0004\",\r\n\"quantity\":1\r\n}\r\n],\r\n\"shippingAddress\":\"No 4, Castro Street, Mountain View, CA, USA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "oauth2-server - /oauth/token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "orderprocessingapp",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "orderprocessingappsecret",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"grant_type\": \"client_credentials\",\r\n    \"scope\": \"read write\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8085/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
