@@ -1,4 +1,4 @@
-package com.gri.alex.service;
+package com.gri.alex.controller;
 
 import com.gri.alex.exceptions.OrderNotFoundException;
 import com.gri.alex.orderentity.Order;
@@ -17,8 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
-public class OrderProcessingService {
-
+public class OrderProcessingController {
     private Map<String, Order> orders = new HashMap<>();
 
     @PostMapping
