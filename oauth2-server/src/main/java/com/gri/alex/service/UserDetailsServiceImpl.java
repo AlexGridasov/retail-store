@@ -30,6 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         org.springframework.security.core.userdetails.User.UserBuilder builder =
                 org.springframework.security.core.userdetails.User.withUsername(user.getUsername());
+
         builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
         builder.roles(user.getRoles());
 
