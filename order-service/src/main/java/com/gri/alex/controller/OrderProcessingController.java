@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.gri.alex.exceptions.OrderNotFoundException;
 import com.gri.alex.orderentity.Order;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+@Slf4j
 @EnableResourceServer
 @EnableWebSecurity
 @RestController
@@ -34,10 +35,9 @@ public class OrderProcessingController extends WebSecurityConfigurerAdapter {
 
     @PostMapping
     public ResponseEntity<Order> placeOrder(@RequestBody Order order) {
-        System.out.println("Received Order For " + order.getItems().size() + " Items");
+        log.info("Received Order For {} Items", order.getItems().size());
         order.getItems().forEach(lineItem ->
-                System.out.println("Item: " + lineItem.getItemCode()
-                        + " Quantity: " + lineItem.getQuantity()));
+                        log.info("Item: {} Quantity: {}", lineItem.getItemCode(), lineItem.getQuantity()));
 
         String orderId = UUID.randomUUID().toString();
         order.setOrderId(orderId);
@@ -58,8 +58,8 @@ public class OrderProcessingController extends WebSecurityConfigurerAdapter {
     @Bean
     public ResourceServerTokenServices tokenServices() {
         RemoteTokenServices tokenServices = new RemoteTokenServices();
-        tokenServices.setClientId("orderprocessingservice");
-        tokenServices.setClientSecret("orderprocessingservicesecret");
+        tokenServices.setClientId("OrderProcessingService");
+        tokenServices.setClientSecret("OrderProcessingServiceSecret");
         tokenServices.setCheckTokenEndpointUrl("http://localhost:8085/oauth/check_token");
 
         return tokenServices;

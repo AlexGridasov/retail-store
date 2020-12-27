@@ -1,124 +1,214 @@
 {
 	"info": {
-		"_postman_id": "0a2186e7-8ed2-4875-aeb6-a2cfbdaff840",
+		"_postman_id": "e7796761-c9fe-4a37-9a4f-3472a9d13993",
 		"name": "retail-store",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "order-service - /orders",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\"items\":[\r\n{\r\n\"itemCode\":\"IT0001\",\r\n\"quantity\":3\r\n},\r\n{\r\n\"itemCode\":\"IT0004\",\r\n\"quantity\":1\r\n}\r\n],\r\n\"shippingAddress\":\"No 4, Castro Street, Mountain View, CA, USA\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/orders",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"orders"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "oauth2-server - /oauth/token",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "orderprocessingapp",
-							"type": "string"
+			"name": "oauth2-server",
+			"item": [
+				{
+					"name": "oauth2-server - /oauth/token (read, write)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "OrderProcessingApp",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "OrderProcessingAppSecret",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "password",
-							"value": "orderprocessingappsecret",
-							"type": "string"
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grant_type\": \"client_credentials\",\r\n    \"scope\": \"read write\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8085/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"oauth",
+								"token"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"grant_type\": \"client_credentials\",\r\n    \"scope\": \"read write\"\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8085/oauth/token",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8085",
-					"path": [
-						"oauth",
-						"token"
-					]
+				{
+					"name": "oauth2-server - /oauth/token (read)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "OrderProcessingServiceSecret",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "OrderProcessingService",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grant_type\": \"client_credentials\",\r\n    \"scope\": \"read\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8085/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "order-service (oauth2) - /orders",
-			"protocolProfileBehavior": {
-				"disabledSystemHeaders": {
-					"content-type": true
-				}
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "480d69b4-77ca-4de5-b9ef-76264b7d1cb1",
-							"type": "string"
+			"name": "order-service",
+			"item": [
+				{
+					"name": "order-service - /orders",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"items\":[\r\n{\r\n\"itemCode\":\"IT0001\",\r\n\"quantity\":3\r\n},\r\n{\r\n\"itemCode\":\"IT0004\",\r\n\"quantity\":1\r\n}\r\n],\r\n\"shippingAddress\":\"No 4, Castro Street, Mountain View, CA, USA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orders"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"items\": [\r\n        {\r\n            \"itemCode\": \"IT0001\",\r\n            \"quantity\": 3\r\n        },\r\n        {\r\n            \"itemCode\": \"IT0004\",\r\n            \"quantity\": 1\r\n        }\r\n    ],\r\n    \"shippingAddress\": \"No 4, Castro Street, Mountain View, CA, USA\"\r\n}"
+				{
+					"name": "order-service (oauth2) - /orders",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "286e8198-9fe9-4f61-80d6-62a43bdb7c0c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"items\": [\r\n        {\r\n            \"itemCode\": \"IT0001\",\r\n            \"quantity\": 3\r\n        },\r\n        {\r\n            \"itemCode\": \"IT0004\",\r\n            \"quantity\": 1\r\n        }\r\n    ],\r\n    \"shippingAddress\": \"No 4, Castro Street, Mountain View, CA, USA\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/orders",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"orders"
-					]
+				{
+					"name": "order-service (oauth2) - /orders/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "286e8198-9fe9-4f61-80d6-62a43bdb7c0c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orders/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a3d45011-6aa6-48ca-9155-29e649827973"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

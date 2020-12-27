@@ -22,7 +22,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
     private AuthenticationManager authenticationManager;
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints
                 .authenticationManager(authenticationManager)
                 .approvalStoreDisabled()
@@ -36,15 +36,15 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-            .withClient("orderprocessingapp")
-                .secret(passwordEncoder.encode("orderprocessingappsecret"))
+            .withClient("OrderProcessingApp")
+                .secret(passwordEncoder.encode("OrderProcessingAppSecret"))
                 .authorizedGrantTypes("client_credentials", "password")
                 .scopes("read", "write")
                 .accessTokenValiditySeconds(3600)
                 .resourceIds("sample-oauth")
             .and()
-            .withClient("orderprocessingservice")
-                .secret(passwordEncoder.encode("orderprocessingservicesecret"))
+            .withClient("OrderProcessingService")
+                .secret(passwordEncoder.encode("OrderProcessingServiceSecret"))
                 .authorizedGrantTypes("client_credentials", "password")
                 .scopes("read")
                 .accessTokenValiditySeconds(3600)
@@ -52,7 +52,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer security) {
         security
                 .checkTokenAccess("isAuthenticated()")
                 .allowFormAuthenticationForClients();

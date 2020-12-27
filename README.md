@@ -45,9 +45,9 @@ EOF
 ```
 
 ## Oauth2 server
-To get an access token from the OAuth 2.0 authorization server:
+To get an access token (read, write) from the OAuth 2.0 authorization server:
 ```
-\> curl -u orderprocessingapp:orderprocessingappsecret \
+\> curl -u OrderProcessingApp:OrderProcessingAppSecret \
 -H "Content-Type: application/json" \
 -d '{"grant_type": "client_credentials", "scope": "read write"}' \
 http://localhost:8085/oauth/token
@@ -59,5 +59,21 @@ Response (example):
     "token_type": "bearer",
     "expires_in": 3524,
     "scope": "read write"
+}
+```
+To get an access token (read) from the OAuth 2.0 authorization server:
+```
+\> curl -u OrderProcessingService:OrderProcessingServiceSecret \
+-H "Content-Type: application/json" \
+-d '{ "grant_type": "client_credentials", "scopes": "read" }' \
+http://localhost:8085/oauth/token
+```
+Response (example):
+```
+{
+    "access_token": "45726074-5d62-4647-9f58-8c0a4d6a7d58",
+    "token_type": "bearer",
+    "expires_in": 3043,
+    "scope": "read"
 }
 ```
