@@ -1,5 +1,6 @@
 package com.gri.alex.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 
 @Import(SecurityAutoConfiguration.class)
 @Configuration
+@ConditionalOnProperty(value = "security.oauth2.enabled", havingValue = "true")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
