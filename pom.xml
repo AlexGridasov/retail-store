@@ -26,6 +26,7 @@
     <modules>
         <module>order-service</module>
         <module>oauth2-server</module>
+        <module>zuul-server</module>
     </modules>
 
     <dependencyManagement>
