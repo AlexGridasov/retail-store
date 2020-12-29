@@ -25,11 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@EnableResourceServer
-@EnableWebSecurity
 @RestController
 @RequestMapping("/orders")
-public class OrderProcessingController extends WebSecurityConfigurerAdapter {
+public class OrderProcessingController {
 
     private Map<String, Order> orders = new HashMap<>();
 
@@ -53,24 +51,6 @@ public class OrderProcessingController extends WebSecurityConfigurerAdapter {
         } else {
             throw new OrderNotFoundException();
         }
-    }
-
-    @Bean
-    public ResourceServerTokenServices tokenServices() {
-        RemoteTokenServices tokenServices = new RemoteTokenServices();
-        tokenServices.setClientId("OrderProcessingService");
-        tokenServices.setClientSecret("OrderProcessingServiceSecret");
-        tokenServices.setCheckTokenEndpointUrl("http://localhost:8085/oauth/check_token");
-
-        return tokenServices;
-    }
-
-    @Override
-    public AuthenticationManager authenticationManagerBean() {
-        OAuth2AuthenticationManager authenticationManager = new OAuth2AuthenticationManager();
-        authenticationManager.setTokenServices(tokenServices());
-
-        return authenticationManager;
     }
 
 }
