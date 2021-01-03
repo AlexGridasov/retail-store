@@ -209,6 +209,171 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "zuul-server",
+			"item": [
+				{
+					"name": "zuul-server - /orders/{id}",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/retail/orders/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"retail",
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "d8274ab5-5c98-4085-8fc8-f37a6ebf325f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "zuul-server (oauth2) - /token/oauth/token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "OrderProcessingAppSecret",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "OrderProcessingApp",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9090/token/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"token",
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "zuul-server (oauth2) - /orders",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "13b3aecf-25bc-4560-9f99-a261e83b6a0f",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"items\": [\r\n        {\r\n            \"itemCode\": \"IT0001\",\r\n            \"quantity\": 3\r\n        },\r\n        {\r\n            \"itemCode\": \"IT0004\",\r\n            \"quantity\": 1\r\n        }\r\n    ],\r\n    \"shippingAddress\": \"No 4, Castro Street, Mountain View, CA, USA\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "zuul-server (oauth2) - /orders/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "286e8198-9fe9-4f61-80d6-62a43bdb7c0c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orders/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "893aa1ea-d46c-4b7d-8e38-1420065f2421"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
